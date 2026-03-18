@@ -1,8 +1,8 @@
 # Recipe Ripper
 
-Convert any recipe webpage into a clean, metric-unit PDF with one click.
+Convert any recipe webpage into a clean, metric-unit PDF or Apple Note with one click.
 
-The extension scrapes the recipe from the current tab, converts imperial measurements to metric, and downloads a formatted PDF — all via a local Python server running on your Mac.
+The extension scrapes the recipe from the current tab, converts imperial measurements to metric, and lets you download a formatted PDF or save directly to Apple Notes — all via a local Python server running on your Mac.
 
 ---
 
@@ -10,8 +10,8 @@ The extension scrapes the recipe from the current tab, converts imperial measure
 
 - A browser extension button scrapes the recipe from the active tab
 - It sends the content to a local Flask server (`localhost:5050`)
-- The server converts units and generates a PDF
-- The PDF downloads automatically
+- The server converts US measurements to metric weight
+- Choose to download a PDF or save as an Apple Note
 
 ---
 
