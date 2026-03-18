@@ -35,10 +35,13 @@ PYTHON_VERSION=$("$PYTHON" --version 2>&1)
 echo "Using Python: $PYTHON ($PYTHON_VERSION)"
 echo "Server path:  $SERVER_PY"
 
-# ── 3. Check flask is importable ─────────────────────────────────────────────
-if ! "$PYTHON" -c "import flask" 2>/dev/null; then
-  echo ""
-  echo "Flask not found. Installing..."
+# ── 3. Install dependencies from requirements.txt ────────────────────────────
+REQUIREMENTS="$SCRIPT_DIR/requirements.txt"
+if [ -f "$REQUIREMENTS" ]; then
+  echo "Installing dependencies from requirements.txt..."
+  "$PYTHON" -m pip install -r "$REQUIREMENTS" --quiet
+else
+  echo "Warning: requirements.txt not found, installing Flask only..."
   "$PYTHON" -m pip install flask flask-cors --quiet
 fi
 

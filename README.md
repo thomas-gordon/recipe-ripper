@@ -15,7 +15,57 @@ The extension scrapes the recipe from the current tab, converts imperial measure
 
 ---
 
-## 1. Install the backend server
+## 1. Install prerequisites
+
+### Xcode command line tools
+
+```sh
+xcode-select --install
+```
+
+### Homebrew
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+### Build dependencies (required for compiling Python)
+
+```sh
+brew install openssl readline sqlite3 xz tcl-tk@8 libb2 zstd zlib pkgconfig
+```
+
+---
+
+## 2. Install Python 3.14 via pyenv
+
+pyenv lets you install and manage Python versions without touching your system Python.
+
+```sh
+# Install pyenv (via Homebrew)
+brew install pyenv
+
+# Add pyenv to your shell (add these lines to ~/.zshrc or ~/.bash_profile)
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+source ~/.zshrc
+
+# Install Python 3.14
+pyenv install 3.14
+
+# Verify
+python3 --version  # should show 3.14.x
+
+# Ensure pip is available
+python3 -m ensurepip --upgrade
+```
+
+The repo includes a `.python-version` file that tells pyenv to automatically use Python 3.14 whenever you're in this directory.
+
+---
+
+## 3. Install the backend server
 
 The server runs as a macOS login item (auto-starts on login).
 
@@ -27,7 +77,7 @@ chmod +x install_service.sh
 The script will:
 
 - Find your Python 3 installation
-- Install Flask if it's missing
+- Install all dependencies from `requirements.txt`
 - Register the server as a launchd agent so it starts automatically
 
 After installation the server runs at `http://localhost:5050`.
@@ -51,7 +101,7 @@ rm ~/Library/LaunchAgents/com.recipe.pdfserver.plist
 
 ---
 
-## 2. Install the browser extension
+## 4. Install the browser extension
 
 ### Chrome
 
@@ -83,5 +133,7 @@ The "Recipe → Metric PDF" icon will appear in your toolbar.
 ## Requirements
 
 - macOS (the server uses launchd)
-- Python 3
+- Xcode command line tools
+- Homebrew
+- Python 3.14 (via pyenv — see above)
 - Flask (installed automatically by the install script)
