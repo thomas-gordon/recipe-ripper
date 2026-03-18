@@ -24,25 +24,28 @@ if [ ! -f "$SERVER_PY" ]; then
   exit 1
 fi
 
-# ── 2. Find Python 3 ─────────────────────────────────────────────────────────
-PYTHON=$(command -v python3 2>/dev/null || command -v python 2>/dev/null || true)
-if [ -z "$PYTHON" ]; then
-  echo "Error: Python 3 not found. Install it from https://brew.sh or python.org"
+# ── 2. Find uv ───────────────────────────────────────────────────────────────
+UV=$(command -v uv 2>/dev/null || true)
+if [ -z "$UV" ]; then
+  echo "Error: uv not found. Install it with: brew install uv"
   exit 1
 fi
 
-PYTHON_VERSION=$("$PYTHON" --version 2>&1)
-echo "Using Python: $PYTHON ($PYTHON_VERSION)"
-echo "Server path:  $SERVER_PY"
+echo "Using uv:    $UV"
+echo "Server path: $SERVER_PY"
 
-# ── 3. Install dependencies from requirements.txt ────────────────────────────
+# ── 3. Install Python 3.14 and dependencies ──────────────────────────────────
+"$UV" python install 3.14
+"$UV" venv --python 3.14 "$SCRIPT_DIR/.venv"
+PYTHON="$SCRIPT_DIR/.venv/bin/python"
+
 REQUIREMENTS="$SCRIPT_DIR/requirements.txt"
 if [ -f "$REQUIREMENTS" ]; then
   echo "Installing dependencies from requirements.txt..."
-  "$PYTHON" -m pip install -r "$REQUIREMENTS" --quiet
+  "$UV" pip install -r "$REQUIREMENTS" --python "$PYTHON" --quiet
 else
   echo "Warning: requirements.txt not found, installing Flask only..."
-  "$PYTHON" -m pip install flask flask-cors --quiet
+  "$UV" pip install flask flask-cors --python "$PYTHON" --quiet
 fi
 
 # ── 4. Create log directory ───────────────────────────────────────────────────

@@ -29,39 +29,17 @@ xcode-select --install
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-### Build dependencies (required for compiling Python)
-
-```sh
-brew install openssl readline sqlite3 xz tcl-tk@8 libb2 zstd zlib pkgconfig
-```
-
 ---
 
-## 2. Install Python 3.14 via pyenv
+## 2. Install uv
 
-pyenv lets you install and manage Python versions without touching your system Python.
+uv is a fast Python package and version manager. It handles installing Python and all dependencies — no need to manage build tools or pip separately.
 
 ```sh
-# Install pyenv (via Homebrew)
-brew install pyenv
-
-# Add pyenv to your shell (add these lines to ~/.zshrc or ~/.bash_profile)
-echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
-echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
-echo 'eval "$(pyenv init -)"' >> ~/.zshrc
-source ~/.zshrc
-
-# Install Python 3.14
-pyenv install 3.14
-
-# Verify
-python3 --version  # should show 3.14.x
-
-# Ensure pip is available
-python3 -m ensurepip --upgrade
+brew install uv
 ```
 
-The repo includes a `.python-version` file that tells pyenv to automatically use Python 3.14 whenever you're in this directory.
+The repo includes a `.python-version` file — uv will automatically use Python 3.14 when you're in this directory.
 
 ---
 
@@ -76,8 +54,8 @@ chmod +x install_service.sh
 
 The script will:
 
-- Find your Python 3 installation
-- Install all dependencies from `requirements.txt`
+- Install Python 3.14 via uv
+- Create a `.venv` virtualenv and install all dependencies from `requirements.txt`
 - Register the server as a launchd agent so it starts automatically
 
 After installation the server runs at `http://localhost:5050`.
@@ -126,7 +104,7 @@ The "Recipe → Metric PDF" icon will appear in your toolbar.
 
 1. Navigate to any recipe page
 2. Click the extension icon in your toolbar
-3. The PDF will download automatically
+3. Click **Convert to PDF** to download a formatted PDF, or **Save as Apple Note** to save directly to Apple Notes
 
 ---
 
@@ -135,5 +113,4 @@ The "Recipe → Metric PDF" icon will appear in your toolbar.
 - macOS (the server uses launchd)
 - Xcode command line tools
 - Homebrew
-- Python 3.14 (via pyenv — see above)
-- Flask (installed automatically by the install script)
+- uv (installs Python 3.14 and all dependencies automatically)
