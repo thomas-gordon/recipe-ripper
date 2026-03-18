@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Recipe → Metric PDF",
+  "version": "1.0",
+  "description": "Convert any recipe page to a metric PDF with one click.",
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Recipe → Metric PDF",
+    "default_icon": {
+      "16":  "icon16.png",
+      "48":  "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+
+  "icons": {
+    "16":  "icon16.png",
+    "48":  "icon48.png",
+    "128": "icon128.png"
+  },
+
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+
+  "host_permissions": [
+    "http://localhost:5050/*"
+  ]
+}
