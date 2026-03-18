@@ -108,7 +108,7 @@ rm ~/Library/LaunchAgents/com.recipe.pdfserver.plist
 1. Open `chrome://extensions`
 2. Enable **Developer mode** (toggle in the top-right)
 3. Click **Load unpacked**
-4. Select the `recipe_extension/` folder from this repo
+4. Select the `chrome_extension/` folder from this repo
 
 The "Recipe → Metric PDF" icon will appear in your toolbar.
 
@@ -116,7 +116,7 @@ The "Recipe → Metric PDF" icon will appear in your toolbar.
 
 1. Open `about:debugging#/runtime/this-firefox`
 2. Click **Load Temporary Add-on**
-3. Navigate to the `recipe_extension/` folder and select `manifest.json`
+3. Navigate to the `firefox_extension/` folder and select `manifest.json`
 
 > Note: Firefox requires the extension to be reloaded after each browser restart unless it is signed and installed permanently. For permanent install, the extension would need to be submitted to [addons.mozilla.org](https://addons.mozilla.org).
 
